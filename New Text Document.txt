@@ -1,0 +1,63 @@
+-- Create the worker table
+CREATE TABLE worker (
+    worker_id SERIAL PRIMARY KEY,
+    first_name VARCHAR(50),
+    last_name VARCHAR(50),
+    salary NUMERIC,
+    joining_date DATE,
+    department VARCHAR(50)
+);
+
+-- Create the title table
+CREATE TABLE title (
+    worker_ref_id INTEGER REFERENCES worker(worker_id),
+    worker_title VARCHAR(50),
+    affected_from DATE,
+    PRIMARY KEY (worker_ref_id, affected_from)
+);
+
+-- Create the bonus table
+CREATE TABLE bonus (
+    worker_ref_id INTEGER REFERENCES worker(worker_id),
+    bonus_amount NUMERIC,
+    bonus_date DATE,
+    PRIMARY KEY (worker_ref_id, bonus_date)
+);
+
+
+
+
+
+
+
+-- Insert sample data into the worker table
+INSERT INTO worker (first_name, last_name, salary, joining_date, department) VALUES
+('Monika', 'Arora', 100000, '2020-02-14', 'HR'),
+('Niharika', 'Verma', 80000, '2011-02-14', 'Admin'),
+('Vishal', 'Singhal', 300000, '2020-02-14', 'HR'),
+('Amitabh', 'Singh', 500000, '2020-02-14', 'Admin'),
+('Vivek', 'Bath', 500000, '2011-06-14', 'Admin'),
+('Vipul', 'Diwan', 200000, '2011-06-14', 'Account'),
+('Satish', 'Kumar', 75000, '2020-01-14', 'Account'),
+('Geetika', 'Chauhan', 90000, '2011-04-14', 'Admin');
+
+-- Insert sample data into the title table
+INSERT INTO title (worker_ref_id, worker_title, affected_from) VALUES
+(1, 'Manager', '2016-02-20'),
+(2, 'Executive', '2016-06-11'),
+(8, 'Executive', '2016-06-11'),
+(5, 'Manager', '2016-06-11'),
+(4, 'Asst. Manager', '2016-06-11'),
+(7, 'Executive', '2016-06-11'),
+(6, 'Lead', '2016-06-11'),
+(3, 'Lead', '2016-06-11');
+
+-- Insert sample data into the bonus table
+INSERT INTO bonus (worker_ref_id, bonus_amount, bonus_date) VALUES
+(1, 5000, '2020-02-16'),
+(2, 3000, '2011-06-16'),
+(3, 4000, '2020-02-16'),
+(1, 4500, '2020-02-16'),
+(2, 3500, '2011-02-16'),
+(4, 4500, '2020-02-16'),
+(5, 3500, '2011-02-16');
